@@ -1,7 +1,7 @@
 # You must provide several options such as search by string, hashtag,  and user at the minimum.
 from pymongo import MongoClient
 import mysql.connector
-print("Please enter a search term in string, hashtag,  and user: ")
+print("Please enter a search term in string, hashtag, and user: ")
 search_term = input()
 if search_term == "string":
     print("Please enter a string: ")
