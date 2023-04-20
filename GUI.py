@@ -20,7 +20,13 @@ elif search_term == "hashtag":
     client = MongoClient('localhost', 27017)
     db = client['tweet']
     collection_currency = db['tweet']
-    print("there are no hashtag in the dataset so we do not search.")
+    myquery = {"entities.hashtags":{$exists: true,"$not":{"$size":0}}}
+    mydoc = collection_currency.find(myquery)
+    if is.empty(mydoc):
+        print("there are no hashtag in the dataset so we do not search.")
+    else:
+        for x in mydoc:
+            print(x)
 elif search_term == "user":
     print("Please enter a user name: ")
     user = input()
