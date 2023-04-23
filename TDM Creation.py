@@ -20,8 +20,6 @@ hashtags = {}
 tweet_keys = ['created_at', 'id_str', 'quote_count', 'reply_count', 'retweet_count', 'favorite_count']
 user_keys = ['name', 'screen_name', 'verified', 'followers_count', 'friends_count', 'created_at']
 
-rts = []
-
 for line in f:
     if line == '\n':
         continue
