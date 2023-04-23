@@ -15,9 +15,12 @@ f = open('D:/MSDS/Database Management/Project/corona-out-3_data', 'r')
 tweets = {}
 texts = {}
 users = {}
+hashtags = {}
 
 tweet_keys = ['created_at', 'id_str', 'quote_count', 'reply_count', 'retweet_count', 'favorite_count']
 user_keys = ['name', 'screen_name', 'verified', 'followers_count', 'friends_count', 'created_at']
+
+rts = []
 
 for line in f:
     if line == '\n':
@@ -28,13 +31,19 @@ for line in f:
     
     if not 'retweeted_status' in lx or len(lx['retweeted_status']) == 0:
         li['retweet'] = False
-        if 'extended tweet' in lx:    
+        if 'extended_tweet' in lx:    
             thisText = lx['extended_tweet']['full_text']
         else:
             thisText = lx['text']
         li['text'] = thisText
         texts[lx['id']] = thisText
         li['hashtags'] = lx['entities']['hashtags']
+        hashtag_set = set(part[1:] for part in thisText.split() if part.startswith('#'))
+        for hashtag in hashtag_set:
+            if hashtag in hashtags.keys():
+                hashtags[hashtag].append(lx['id'])
+            else:
+                hashtags[hashtag] = [lx['id']]
     else:
         li['retweet'] = True
         li['original_tweet'] = lx['retweeted_status']['id']
@@ -60,6 +69,10 @@ x2 = dict((word_list[w], [key_list[t] for t in np.where(x1[w]>0)[0]]) for w in r
 
 with open("overall_tdm.json", "w") as outfile:
     json.dump(x2, outfile, indent=2)
+
+with open("hashtag_tdm.json", "w") as outfile:
+    json.dump(hashtags, outfile, indent=2)
+
 
 # upload tweets, x2 to mongodb, users to mysql
 
