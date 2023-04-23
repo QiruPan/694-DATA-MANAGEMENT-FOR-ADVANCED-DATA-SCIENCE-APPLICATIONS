@@ -20,6 +20,8 @@ hashtags = {}
 tweet_keys = ['created_at', 'id_str', 'quote_count', 'reply_count', 'retweet_count', 'favorite_count']
 user_keys = ['name', 'screen_name', 'verified', 'followers_count', 'friends_count', 'created_at']
 
+rts = []
+
 for line in f:
     if line == '\n':
         continue
@@ -35,8 +37,8 @@ for line in f:
             thisText = lx['text']
         li['text'] = thisText
         texts[lx['id']] = thisText
-        li['hashtags'] = lx['entities']['hashtags']
         hashtag_set = set(part[1:] for part in thisText.split() if part.startswith('#'))
+        li['hashtags'] = hashtag_set
         for hashtag in hashtag_set:
             if hashtag in hashtags.keys():
                 hashtags[hashtag].append(lx['id'])
