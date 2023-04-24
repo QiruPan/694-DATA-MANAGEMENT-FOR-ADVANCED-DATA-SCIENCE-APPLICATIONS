@@ -4,6 +4,9 @@
 Tweet Search using MongoDB, MySQL, Python, and Dash
 
 Aqeel Padaria - https://github.com/Aeqil
+
 Anthony Salemo - https://github.com/AnthonySalemo
+
 Qiru Pan - https://github.com/QiruPan
+
 Mazin Rafi - https://github.com/NizamIfar
