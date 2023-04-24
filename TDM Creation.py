@@ -35,7 +35,7 @@ for line in f:
             thisText = lx['text']
         li['text'] = thisText
         texts[lx['id']] = thisText
-        hashtag_set = set(part[1:] for part in thisText.split() if part.startswith('#'))
+        hashtag_set = list(set(part[1:] for part in thisText.split() if part.startswith('#')))
         li['hashtags'] = hashtag_set
         for hashtag in hashtag_set:
             if hashtag in hashtags.keys():
